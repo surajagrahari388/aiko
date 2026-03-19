@@ -1,0 +1,11 @@
+# Full regression template
+steps:
+- script: |
+    cd tests
+    pytest tests/tests/ -v -m regression --headless -n auto --alluredir=reports/full-results --junitxml=reports/full-results.xml --html=reports/full-report.html
+  displayName: 'Full Regression Suite'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'reports/full-results.xml'
+

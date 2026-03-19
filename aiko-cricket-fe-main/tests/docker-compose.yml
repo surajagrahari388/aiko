@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=test
+      - APIM_SUBSCRIPTION_KEY=demo-key
+    command: npm run dev
+
+  selenium-hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"
+
+  chrome:
+    image: selenium/node-chrome:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - NODE_MAX_INSTANCES=5
+      - NODE_MAX_SESSION=5
+
+  firefox:
+    image: selenium/node-firefox:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - NODE_MAX_INSTANCES=5
+      - NODE_MAX_SESSION=5
+
+  allure:
+    image: frankescobar/allure-server:latest
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./reports/allure-results:/app/allure-report/allure-results
+

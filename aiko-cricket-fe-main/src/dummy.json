@@ -1,0 +1,27 @@
+{
+    "match_id": "93022",
+    "language": "english",
+    "summary": [
+        {
+            "scenario": "Team_1_and_team_2_current_captain's_toss_history_in_last_10_matches",
+            "original_scenario": "Team_1_and_team_2_current_captain's_toss_history_in_last_10_matches",
+            "original_bet_type": "TO_WIN_THE_TOSS",
+            "summary": "test toss luck has been tough with just 1 win in 10, while Elyse Villani's been solid at 50%. In their head-to-head, Villani's captaincy won the toss once, keeping momentum.",
+            "bet_type": "TO_WIN_THE_TOSS",
+            "tip_id": "93022_inning0_over_0_Team_1_and_team_2_current_captain's_toss_history_in_last_10_matches_rhunt58fxsysgx0wla7jddk9",
+            "is_live": true,
+            "friendly_bet_type": "Toss_Result",
+            "filter_category": [
+                "all"
+            ],
+            "original_bet_type_live": true,
+            "gpt_call_stats": {
+                "prompt_tokens": 5965,
+                "completion_tokens": 51,
+                "total_tokens": 6016,
+                "cached_tokens": 5888
+            },
+            "updated_at": "2025-11-26T06:42:31.767093"
+        }
+    ]
+}

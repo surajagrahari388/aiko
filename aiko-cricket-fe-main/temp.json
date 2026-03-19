@@ -1,0 +1,127 @@
+{
+  "matchData": {
+    "sports": "cricket",
+    "match": {
+      "competitions": {
+        "cid": "129674",
+        "title": "England tour of New Zealand",
+        "abbr": "NZ vs ENG",
+        "updated_at": "2025-10-17T15:01:57.330Z",
+        "season": "2025"
+      },
+      "teams": [
+        {
+          "team_id": "490",
+          "name": "England",
+          "short_name": "ENG",
+          "logo_url": "https://gcdnimages.entitysport.com/assets/uploads/2025/09/ENG.webp",
+          "thumb_url": "https://gcdnimages.entitysport.com/assets/uploads/2025/09/ENG.webp",
+          "cid": "129674",
+          "scores_full": "222/10 (40.2 ov)"
+        },
+        {
+          "team_id": "7",
+          "name": "New Zealand",
+          "short_name": "NZ",
+          "logo_url": "https://gcdnimages.entitysport.com/assets/uploads/2023/05/New-zealand.png",
+          "thumb_url": "https://gcdnimages.entitysport.com/assets/uploads/2023/05/New-zealand.png",
+          "cid": "129697",
+          "scores_full": "222/8 (44.2 ov)"
+        }
+      ],
+      "date_start_ist": "2025-11-01T06:30:00.000Z",
+      "date_start": "2025-11-01T01:00:00.000Z",
+      "match_id": "91406",
+      "format_str": "ODI",
+      "title": "New Zealand vs England",
+      "short_title": "NZ vs ENG",
+      "subtitle": "3rd ODI",
+      "status_str": "Live",
+      "status_note": "New Zealand need 1 runs in 34 remaining balls",
+      "game_state_str": "Play Ongoing",
+      "result": null,
+      "toss_winner": "7",
+      "contests": [
+        {
+          "contest_id": "1",
+          "prize_pool": 300000,
+          "entry_fee": 100,
+          "max_entries": 1000,
+          "max_entries_per_user": 10,
+          "max_prize": 100000,
+          "current_spots": 500,
+          "max_spots": 1000
+        },
+        {
+          "contest_id": "2",
+          "prize_pool": 500000,
+          "entry_fee": 200,
+          "max_entries": 1500,
+          "max_entries_per_user": 12,
+          "max_prize": 150000,
+          "current_spots": 1200,
+          "max_spots": 1500
+        },
+        {
+          "contest_id": "3",
+          "prize_pool": 700000,
+          "entry_fee": 300,
+          "max_entries": 2000,
+          "max_entries_per_user": 14,
+          "max_prize": 200000,
+          "current_spots": 900,
+          "max_spots": 2000
+        },
+        {
+          "contest_id": "4",
+          "prize_pool": 900000,
+          "entry_fee": 400,
+          "max_entries": 2500,
+          "max_entries_per_user": 16,
+          "max_prize": 250000,
+          "current_spots": 2000,
+          "max_spots": 2500
+        },
+        {
+          "contest_id": "5",
+          "prize_pool": 1100000,
+          "entry_fee": 500,
+          "max_entries": 3000,
+          "max_entries_per_user": 18,
+          "max_prize": 300000,
+          "current_spots": 1800,
+          "max_spots": 3000
+        },
+        {
+          "contest_id": "6",
+          "prize_pool": 1300000,
+          "entry_fee": 600,
+          "max_entries": 3500,
+          "max_entries_per_user": 20,
+          "max_prize": 350000,
+          "current_spots": 2800,
+          "max_spots": 3500
+        }
+      ],
+      "pitch_type": "Flat Track Pitch",
+      "pitch_batting": "Average",
+      "pitch_bowling_pace": "Pace and Bounce",
+      "pitch_bowling_spin": "Average",
+      "venues": {
+        "venue_id": "171",
+        "name": "Sky Stadium",
+        "location": "Wellington",
+        "state": null,
+        "country": "New Zealand",
+        "timezone": ""
+      },
+      "weather": "Clouds",
+      "weather_desc": "overcast clouds",
+      "wind_speed": 6.89,
+      "clouds": 100,
+      "updated_at": "2025-10-17T15:01:57.330Z",
+      "is_lineup_out": true
+    }
+  },
+  "timestamp": "2025-11-01T08:14:22.345Z"
+}

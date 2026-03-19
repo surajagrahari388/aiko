@@ -1,0 +1,14 @@
+pytest==8.3.3
+pytest-html==4.1.1
+pytest-rerunfailures==12.0.0
+pytest-xdist==3.6.1
+selenium==4.25.0
+webdriver-manager==4.0.2
+requests==2.32.3
+pytest-allure-adaptor==2.13.1
+allure-pytest-bdd==2.13.5
+faker==30.2.0
+python-dotenv==1.0.1
+jsonschema==4.23.0
+beautifulsoup4==4.12.3
+

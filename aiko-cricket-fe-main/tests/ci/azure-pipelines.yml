@@ -1,0 +1,76 @@
+trigger:
+- main
+- develop
+
+pr:
+- main
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  PYTHON_VERSION: '3.12'
+  BASE_URL: '$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_apis/build/builds/$(Build.BuildId)?api-version=6.0'  # Dynamic
+
+stages:
+- stage: Test
+  displayName: 'Run Automation Tests'
+  jobs:
+  - job: API_Tests
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(PYTHON_VERSION)'
+    - script: |
+        cd tests
+        pip install -r requirements.txt
+        pytest tests/api/ -v -m api --junitxml=reports/api-results.xml
+      displayName: 'Run API Tests'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/reports/api-results.xml'
+
+  - job: UI_Tests
+    strategy:
+      matrix:
+        Chrome:
+          browser: chrome
+        Firefox:
+          browser: firefox
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(PYTHON_VERSION)'
+    - task: Docker@2
+      inputs:
+        command: 'up'
+        dockerfile: 'tests/docker-compose.yml'
+        detached: true
+    - script: |
+        cd tests
+        pip install -r requirements.txt
+        pytest tests/tests/ -v -m smoke --headless --driver=Remote --command-executor=http://localhost:4444/wd/hub --alluredir=reports/allure-results --junitxml=reports/ui-results.xml
+      displayName: 'Run UI Tests ($(browser))'
+      env:
+        BASE_URL: 'http://localhost:3000'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/reports/ui-results.xml'
+    - task: AllureGenerate@2
+      inputs:
+        allureResultsDirectory: 'reports/allure-results'
+        allureReportServeURL: 'http://localhost:5050'
+
+- stage: Nightly
+  schedule:
+    - cron: '0 2 * * *'  # 2AM daily
+  dependsOn: Test
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+  jobs:
+  - job: FullRegression
+    steps:
+    - template: ui-full-regression.yml  # Separate full suite
+

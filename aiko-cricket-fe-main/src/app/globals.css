@@ -1,0 +1,325 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.65rem;
+  /* Improved light mode: warmer background, better contrast */
+  --background: #f7f7f7;
+  --foreground: #0a0a0a;
+  --card: #f7f7f7;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #a6171b;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f8f9fb;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #a6171b;
+  --chart-1: #f59e0b;
+  --chart-2: #10b981;
+  --chart-3: #3b82f6;
+  --chart-4: #8b5cf6;
+  --chart-5: #ec4899;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #a6171b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #a6171b;
+  /* Light mode odds colors - vibrant but readable */
+  --odds-blue: #60a5fa;
+  --odds-blue-foreground: #1e3a8a;
+  --odds-pink: #f472b6;
+  --odds-pink-foreground: #831843;
+  --navbar-grey: #eae5dc;
+  /* Gradient backgrounds */
+  --secondary-glow: conic-gradient(
+    from 10deg at 50% 50%,
+    #0a0a0f 0deg,
+    #050508 55deg,
+    #0d0d12 120deg,
+    #080810 160deg,
+    transparent 360deg
+  );
+  --third-glow: conic-gradient(
+    from 90deg at 50% 50%,
+    #0f0f14 0deg,
+    #060609 160deg,
+    #0b0b10 120deg,
+    #030305 55deg,
+    transparent 360deg
+  );
+}
+
+.dark {
+  /* Improved dark mode: true black with better contrast */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #141414;
+  --card-foreground: #fafafa;
+  --popover: #141414;
+  --popover-foreground: #fafafa;
+  --primary: #a6171b;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #a6171b;
+  --chart-1: #fbbf24;
+  --chart-2: #34d399;
+  --chart-3: #60a5fa;
+  --chart-4: #a78bfa;
+  --chart-5: #f472b6;
+  --sidebar: #141414;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #a6171b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #27272a;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #a6171b;
+  /* Dark mode odds colors - vibrant with proper contrast */
+  --odds-blue: #3b82f6;
+  --odds-blue-foreground: #dbeafe;
+  --odds-pink: #ec4899;
+  --odds-pink-foreground: #fce7f3;
+  --navbar-grey: #1a1a1a;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-navbar-grey: var(--navbar-grey);
+}
+
+@layer base {
+  .odds-blue {
+    background: var(--color-blue);
+    color: var(--color-foreground);
+  }
+  .odds-pink {
+    background: var(--color-pink);
+    color: var(--color-foreground);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .gradient-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gradient-bg::before,
+  .gradient-bg::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    opacity: 0.8;
+  }
+
+  .gradient-bg::before {
+    background: var(--third-glow);
+    border-radius: 50%;
+    width: 50vw;
+    height: 50vw;
+    margin-left: -200px;
+    filter: blur(90px);
+    top: calc(50% - 25vw);
+    left: 50vw;
+    animation: animateBefore 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
+  }
+
+  .gradient-bg::after {
+    background: var(--secondary-glow);
+    border-radius: 50%;
+    width: 500px;
+    height: 700px;
+    filter: blur(90px);
+    top: calc(50% - 25vw);
+    left: calc(50vw - 25vw);
+    animation: animateAfter 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
+  }
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 3px solid var(--color-primary);
+    border-right: 3px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes animateBefore {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(200px) scale(0.8);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animateAfter {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-250px) scale(1.2);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+/*
+ * Update your Tailwind globals.css to include the 
+ * following code. This will ensure that the
+ * Streamdown styles are applied to your project.
+ * 
+ * Make sure the path matches the location of the
+ * node_modules folder in your project i.e.
+ * @source "<path-to-node_modules>/node_modules/streamdown/dist/index.js";
+ */
+
+@source "../../node_modules/streamdown/dist/index.js";
+
+/* Hide scrollbar utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  -webkit-overflow-scrolling: touch;  /* iOS momentum scrolling */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Ball event entry animation */
+@keyframes ball-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  50% { transform: scale(1.15); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-ball-pop {
+  animation: ball-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Wicket entry: pop + shake */
+@keyframes ball-shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-3px) rotate(-2deg); }
+  20% { transform: translateX(3px) rotate(2deg); }
+  30% { transform: translateX(-3px) rotate(-1deg); }
+  40% { transform: translateX(3px) rotate(1deg); }
+  50% { transform: translateX(0); }
+}
+.animate-ball-shake {
+  animation: ball-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, ball-shake 0.6s 0.3s ease-in-out;
+}
+
+/* Rotating conic-gradient border on badge */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-spin {
+  to { --border-angle: 360deg; }
+}
+.animate-border-spin {
+  animation: border-spin 2.5s linear infinite;
+}
+
+/* Hot insights flame animation */
+@keyframes flame-flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+  25% { transform: scaleY(1.1) scaleX(0.92); opacity: 0.9; }
+  50% { transform: scaleY(0.88) scaleX(1.05); opacity: 1; }
+  75% { transform: scaleY(1.06) scaleX(0.96); opacity: 0.85; }
+}
+@keyframes flame-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.4)); }
+  50% { filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.7)); }
+}
+.animate-flame {
+  animation: flame-flicker 1.2s ease-in-out infinite, flame-glow 2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Subtle pulse for live Match Pulse border */
+@keyframes pulse-subtle {
+  0%, 100% { border-left-color: rgb(34 197 94); }
+  50% { border-left-color: rgb(34 197 94 / 0.3); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}

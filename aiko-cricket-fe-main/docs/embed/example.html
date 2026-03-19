@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aiko Embed — Integration Examples</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #f5f5f5;
+        color: #333;
+        min-height: 100vh;
+      }
+
+      .page-header {
+        background: #1a1a2e;
+        color: #fff;
+        padding: 24px 20px;
+        text-align: center;
+      }
+
+      .page-header h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .page-header p {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* --- Controls --- */
+      .controls {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .controls h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .control-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      @media (max-width: 500px) {
+        .control-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .control-group label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #666;
+      }
+
+      .control-group input,
+      .control-group select {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #fafafa;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .control-group input:focus,
+      .control-group select:focus {
+        border-color: #6366f1;
+      }
+
+      .control-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .btn-load {
+        grid-column: 1 / -1;
+        padding: 10px 20px;
+        background: #6366f1;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 4px;
+      }
+
+      .btn-load:hover {
+        background: #4f46e5;
+      }
+
+      /* --- Embed section --- */
+      .embed-section {
+        margin-bottom: 20px;
+      }
+
+      .embed-section h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .embed-wrapper {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .embed-wrapper.dark-preview {
+        background: #1a1a2e;
+      }
+
+      .embed-wrapper iframe {
+        display: block;
+        width: 100%;
+        height: 160px;
+        border: none;
+      }
+
+      /* --- Generated URL --- */
+      .url-display {
+        background: #fff;
+        border-radius: 12px;
+        padding: 16px 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+      }
+
+      .url-display h3 {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .url-display code {
+        display: block;
+        background: #f0f0f0;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        word-break: break-all;
+        color: #333;
+        line-height: 1.5;
+      }
+
+      /* --- Code snippet --- */
+      .code-section {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .code-section h3 {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .code-section pre {
+        background: #1e1e2e;
+        color: #cdd6f4;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+        overflow-x: auto;
+      }
+
+      .code-section .copy-btn {
+        float: right;
+        padding: 4px 10px;
+        background: #3b3b52;
+        color: #cdd6f4;
+        border: none;
+        border-radius: 4px;
+        font-size: 11px;
+        cursor: pointer;
+        margin-bottom: 8px;
+      }
+
+      .code-section .copy-btn:hover {
+        background: #52526e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>Aiko Embed</h1>
+      <p>Integration examples &mdash; configure and preview below</p>
+    </div>
+
+    <div class="container">
+      <!-- Controls -->
+      <div class="controls">
+        <h2>Configuration</h2>
+        <div class="control-grid">
+          <div class="control-group full-width">
+            <label>Base URL</label>
+            <input
+              type="text"
+              id="baseUrl"
+              value="https://test.aiko.cricket"
+              placeholder="https://test.aiko.cricket"
+            />
+          </div>
+          <div class="control-group full-width">
+            <label>Subscription Key</label>
+            <input
+              type="text"
+              id="subscriptionKey"
+              value=""
+              placeholder="Your APIM subscription key"
+            />
+          </div>
+          <div class="control-group">
+            <label>Match ID</label>
+            <input type="text" id="matchId" value="83798" />
+          </div>
+          <div class="control-group">
+            <label>User ID</label>
+            <input type="text" id="userId" value="demo-user-001" />
+          </div>
+          <div class="control-group">
+            <label>Tenant ID</label>
+            <input type="text" id="tenantId" value="" placeholder="Required — your tenant ID" />
+          </div>
+          <div class="control-group">
+            <label>Channel</label>
+            <input type="text" id="channel" value="" placeholder="Required — channel identifier" />
+          </div>
+          <div class="control-group">
+            <label>Language</label>
+            <select id="language">
+              <option value="english" selected>English</option>
+              <option value="hindi">Hindi</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Theme</label>
+            <select id="theme">
+              <option value="light" selected>Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Height (px)</label>
+            <input type="number" id="iframeHeight" value="160" min="100" max="600" />
+          </div>
+          <div class="control-group">
+            <label>Accent Color</label>
+            <input type="color" id="accentColor" value="#a6171b" />
+          </div>
+          <div class="control-group">
+            <label>Font Family</label>
+            <select id="fontFamily">
+              <option value="" selected>Default (Space Grotesk)</option>
+              <option value="Inter">Inter</option>
+              <option value="Roboto">Roboto</option>
+              <option value="Open Sans">Open Sans</option>
+              <option value="Lato">Lato</option>
+              <option value="Poppins">Poppins</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Border Radius</label>
+            <select id="borderRadius">
+              <option value="">Default (lg)</option>
+              <option value="none">None</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Heading Size</label>
+            <select id="headingSize">
+              <option value="">Default (md)</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Body Size</label>
+            <select id="bodySize">
+              <option value="">Default (md)</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+            </select>
+          </div>
+          <button type="button" class="btn-load" onclick="loadEmbed()">Load Match Pulse</button>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="embed-section">
+        <h2>Preview</h2>
+        <div class="embed-wrapper" id="embedWrapper">
+          <iframe
+            id="matchPulseEmbed"
+            src="about:blank"
+            allow="autoplay"
+            title="Match Pulse"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Generated URL -->
+      <div class="url-display">
+        <h3>Generated URL</h3>
+        <code id="generatedUrl">Click "Load Match Pulse" to generate</code>
+      </div>
+
+      <!-- Copy-paste snippet -->
+      <div class="code-section">
+        <h3>Embed Code</h3>
+        <button type="button" class="copy-btn" onclick="copySnippet('codeSnippet')">Copy</button>
+        <pre id="codeSnippet"><!-- Click "Load Match Pulse" to generate --></pre>
+      </div>
+
+      <!-- =========================================================== -->
+      <!-- Match Tips Embed                                             -->
+      <!-- =========================================================== -->
+      <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;" />
+
+      <div class="controls">
+        <h2>Match Tips — Full Tips Experience</h2>
+        <p style="font-size: 13px; color: #666; margin-bottom: 16px;">
+          Live Tips, Pre-Game Tips, Ask Aiko Q&amp;A, and Match Insights in one embed.
+          Uses the same configuration fields above (Base URL, Subscription Key, Match ID, User ID, Language, Theme).
+        </p>
+        <div class="control-grid">
+          <div class="control-group">
+            <label>Tips Height (px)</label>
+            <input type="number" id="tipsIframeHeight" value="500" min="300" max="900" />
+          </div>
+          <button type="button" class="btn-load" onclick="loadMatchTipsEmbed()">Load Match Tips</button>
+        </div>
+      </div>
+
+      <!-- Match Tips Preview -->
+      <div class="embed-section">
+        <h2>Match Tips Preview</h2>
+        <div class="embed-wrapper" id="tipsEmbedWrapper">
+          <iframe
+            id="matchTipsEmbed"
+            src="about:blank"
+            allow="autoplay; microphone"
+            title="Match Tips"
+            style="height: 500px;"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Match Tips Generated URL -->
+      <div class="url-display">
+        <h3>Match Tips URL</h3>
+        <code id="tipsGeneratedUrl">Click "Load Match Tips" to generate</code>
+      </div>
+
+      <!-- Match Tips Code snippet -->
+      <div class="code-section">
+        <h3>Match Tips Embed Code</h3>
+        <button type="button" class="copy-btn" onclick="copySnippet('tipsCodeSnippet')">Copy</button>
+        <pre id="tipsCodeSnippet"><!-- Click "Load Match Tips" to generate --></pre>
+      </div>
+
+      <!-- =========================================================== -->
+      <!-- Match Center Embed                                           -->
+      <!-- =========================================================== -->
+      <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;" />
+
+      <div class="controls">
+        <h2>Match Center — Pulse + Full Tips</h2>
+        <p style="font-size: 13px; color: #666; margin-bottom: 16px;">
+          Match Pulse insights at the top with Live Tips, Pre-Game Tips, Ask Aiko Q&amp;A, and Match Insights tabs below.
+          Uses the same configuration fields above (Base URL, Subscription Key, Match ID, User ID, Language, Theme).
+        </p>
+        <div class="control-grid">
+          <div class="control-group">
+            <label>Center Height (px)</label>
+            <input type="number" id="centerIframeHeight" value="700" min="400" max="1200" />
+          </div>
+          <button type="button" class="btn-load" onclick="loadMatchCenterEmbed()">Load Match Center</button>
+        </div>
+      </div>
+
+      <!-- Match Center Preview -->
+      <div class="embed-section">
+        <h2>Match Center Preview</h2>
+        <div class="embed-wrapper" id="centerEmbedWrapper">
+          <iframe
+            id="matchCenterEmbed"
+            src="about:blank"
+            allow="autoplay; microphone"
+            title="Match Center"
+            style="height: 700px;"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Match Center Generated URL -->
+      <div class="url-display">
+        <h3>Match Center URL</h3>
+        <code id="centerGeneratedUrl">Click "Load Match Center" to generate</code>
+      </div>
+
+      <!-- Match Center Code snippet -->
+      <div class="code-section">
+        <h3>Match Center Embed Code</h3>
+        <button type="button" class="copy-btn" onclick="copySnippet('centerCodeSnippet')">Copy</button>
+        <pre id="centerCodeSnippet"><!-- Click "Load Match Center" to generate --></pre>
+      </div>
+    </div>
+
+    <script>
+      function getSharedParams() {
+        const baseUrl = document.getElementById("baseUrl").value.replace(/\/+$/, "");
+        const matchId = document.getElementById("matchId").value.trim();
+        const userId = document.getElementById("userId").value.trim();
+        const subscriptionKey = document.getElementById("subscriptionKey").value.trim();
+        const language = document.getElementById("language").value;
+        const theme = document.getElementById("theme").value;
+        const tenantId = document.getElementById("tenantId").value.trim();
+        const channel = document.getElementById("channel").value.trim();
+        const accentColor = document.getElementById("accentColor").value;
+        const fontFamily = document.getElementById("fontFamily").value;
+        const borderRadius = document.getElementById("borderRadius").value;
+        const headingSize = document.getElementById("headingSize").value;
+        const bodySize = document.getElementById("bodySize").value;
+
+        const missing = [];
+        if (!userId) missing.push("User ID");
+        if (!subscriptionKey) missing.push("Subscription Key");
+        if (!tenantId) missing.push("Tenant ID");
+        if (!channel) missing.push("Channel");
+        if (missing.length) {
+          alert("Required fields missing: " + missing.join(", "));
+          return null;
+        }
+
+        const params = new URLSearchParams();
+        params.set("user_id", userId);
+        params.set("subscription-key", subscriptionKey);
+        params.set("tenant_id", tenantId);
+        params.set("channel", channel);
+        if (language) params.set("language", language);
+        if (theme) params.set("theme", theme);
+        if (accentColor && accentColor !== "#a6171b") params.set("accent_color", accentColor);
+        if (fontFamily) params.set("font_family", fontFamily);
+        if (borderRadius) params.set("border_radius", borderRadius);
+        if (headingSize) params.set("heading_size", headingSize);
+        if (bodySize) params.set("body_size", bodySize);
+
+        return { baseUrl, matchId, params, theme };
+      }
+
+      /* ---- Match Pulse ---- */
+      function loadEmbed() {
+        const shared = getSharedParams();
+        if (!shared) return;
+        const { baseUrl, matchId, params, theme } = shared;
+        const url = `${baseUrl}/embed/match-pulse/${matchId}?${params.toString()}`;
+        const height = document.getElementById("iframeHeight").value || "160";
+
+        const iframe = document.getElementById("matchPulseEmbed");
+        iframe.src = url;
+        iframe.style.height = height + "px";
+
+        document.getElementById("embedWrapper").classList.toggle("dark-preview", theme === "dark");
+        document.getElementById("generatedUrl").textContent = url;
+
+        document.getElementById("codeSnippet").textContent =
+          `<iframe\n` +
+          `  src="${url}"\n` +
+          `  width="100%"\n` +
+          `  height="${height}"\n` +
+          `  frameborder="0"\n` +
+          `  style="border: none; border-radius: 12px; overflow: hidden;"\n` +
+          `  allow="autoplay"\n` +
+          `  title="Match Pulse"\n` +
+          `></iframe>`;
+      }
+
+      /* ---- Match Tips ---- */
+      function loadMatchTipsEmbed() {
+        const shared = getSharedParams();
+        if (!shared) return;
+        const { baseUrl, matchId, params, theme } = shared;
+        const url = `${baseUrl}/embed/match-tips/${matchId}?${params.toString()}`;
+        const height = document.getElementById("tipsIframeHeight").value || "500";
+
+        const iframe = document.getElementById("matchTipsEmbed");
+        iframe.src = url;
+        iframe.style.height = height + "px";
+
+        document.getElementById("tipsEmbedWrapper").classList.toggle("dark-preview", theme === "dark");
+        document.getElementById("tipsGeneratedUrl").textContent = url;
+
+        document.getElementById("tipsCodeSnippet").textContent =
+          `<iframe\n` +
+          `  src="${url}"\n` +
+          `  width="100%"\n` +
+          `  height="${height}"\n` +
+          `  frameborder="0"\n` +
+          `  style="border: none; border-radius: 12px; overflow: hidden;"\n` +
+          `  allow="autoplay; microphone"\n` +
+          `  title="Match Tips"\n` +
+          `></iframe>`;
+      }
+
+      /* ---- Match Center ---- */
+      function loadMatchCenterEmbed() {
+        const shared = getSharedParams();
+        if (!shared) return;
+        const { baseUrl, matchId, params, theme } = shared;
+        const url = `${baseUrl}/embed/match-center/${matchId}?${params.toString()}`;
+        const height = document.getElementById("centerIframeHeight").value || "700";
+
+        const iframe = document.getElementById("matchCenterEmbed");
+        iframe.src = url;
+        iframe.style.height = height + "px";
+
+        document.getElementById("centerEmbedWrapper").classList.toggle("dark-preview", theme === "dark");
+        document.getElementById("centerGeneratedUrl").textContent = url;
+
+        document.getElementById("centerCodeSnippet").textContent =
+          `<iframe\n` +
+          `  src="${url}"\n` +
+          `  width="100%"\n` +
+          `  height="${height}"\n` +
+          `  frameborder="0"\n` +
+          `  style="border: none; border-radius: 12px; overflow: hidden;"\n` +
+          `  allow="autoplay; microphone"\n` +
+          `  title="Match Center"\n` +
+          `></iframe>`;
+      }
+
+      /* ---- Copy helper ---- */
+      function copySnippet(preId) {
+        const code = document.getElementById(preId).textContent;
+        navigator.clipboard.writeText(code).then(() => {
+          const btn = document.getElementById(preId).previousElementSibling;
+          btn.textContent = "Copied!";
+          setTimeout(() => (btn.textContent = "Copy"), 2000);
+        });
+      }
+    </script>
+  </body>
+</html>

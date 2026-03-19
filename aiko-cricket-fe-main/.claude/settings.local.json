@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(pnpm run lint)",
+      "Bash(cd:*)",
+      "Bash(npx next lint)",
+      "Bash(pnpm dlx:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(gh pr:*)",
+      "Bash(then echo \"$file\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(xargs:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(git status:*)",
+      "Bash(git checkout:*)",
+      "Bash(gh label:*)",
+      "Bash(gh api:*)",
+      "Bash(gh run:*)",
+      "mcp__next-devtools__nextjs_index",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(npx:*)",
+      "mcp__next-devtools__init",
+      "mcp__next-devtools__browser_eval",
+      "Bash(gh release:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "next-devtools"
+  ]
+}
